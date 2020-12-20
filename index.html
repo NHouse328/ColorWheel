@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas 
+        id="Canvas"
+        width="500px"
+        height="500px"
+        style="
+            background-color: white;"></canvas>
+        
+    <script>
+        draw();
+        
+        function draw() {
+            var c = document.getElementById("Canvas");
+            var ctx = c.getContext("2d");
+
+            /* ctx.translate(250,250); */
+
+            var Meio = 500 / 2;
+
+            var Cantos = 3600;
+
+            var Largura = 2;
+            var raioMenor = 0;
+            var raioMaior = raioMenor + Largura ;
+            
+            var AnguloInicial = 0;
+            var AnguloFinal   = 0;
+
+            
+
+            var Cor = 0;
+
+            var pi = Math.PI;
+
+            var Angulo = (360 / Cantos)*(pi/180);
+
+            for (var r = 0; r < 100; r++) {
+                raioMenor += Largura;
+                raioMaior += Largura
+                for (var i = 0; i < Cantos; i++) {
+                    AnguloFinal += Angulo;
+                    ctx.beginPath();
+                    ctx.lineWidth = 2;
+
+                    ctx.moveTo( Meio + Math.cos(AnguloInicial)  *raioMenor, 
+                                Meio + Math.sin(AnguloInicial)  *raioMenor);
+                    ctx.lineTo( Meio + Math.cos(AnguloInicial)  *raioMaior, 
+                                Meio + Math.sin(AnguloInicial)  *raioMaior);
+                    ctx.lineTo( Meio + Math.cos(AnguloFinal)    *raioMaior, 
+                                Meio + Math.sin(AnguloFinal)    *raioMaior);
+                    ctx.lineTo( Meio + Math.cos(AnguloFinal)    *raioMenor, 
+                                Meio + Math.sin(AnguloFinal)    *raioMenor);
+                    ctx.lineTo( Meio + Math.cos(AnguloInicial)  *raioMenor, 
+                                Meio + Math.sin(AnguloInicial)  *raioMenor);
+                    Cor = (360 / Cantos) * i
+                    ctx.strokeStyle = 'hsl('+ Cor +','+ r+'%, 50%)';
+                    
+                    ctx.stroke();
+                    AnguloInicial += Angulo;
+                }
+            }
+        }
+        
+    </script>
+</body>
+</html>
